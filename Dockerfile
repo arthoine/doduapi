@@ -1,22 +1,25 @@
-# Utiliser une image Ubuntu de base
-FROM ubuntu:22.04
+# Base Debian
+FROM debian:bullseye-slim
 
-# Installer curl et bash
+# Installer dépendances
 RUN apt-get update && \
-    apt-get install -y curl bash ca-certificates && \
-    apt-get clean
+    apt-get install -y curl unzip ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
 # Créer le dossier de travail
 WORKDIR /app
 
-# Copier le fichier .env
+# Copier .env
 COPY .env /app/.env
 
 # Installer DoduAPI
 RUN curl -s https://get.dofusdu.de/doduapi | sh
 
-# Exposer le port Railway
+# Ajouter le dossier doduapi à PATH
+ENV PATH="/root/.doduapi:${PATH}"
+
+# Exposer le port (Railway remplace $PORT)
 EXPOSE 3000
 
-# Lancer DoduAPI
+# Start DoduAPI
 CMD ["doduapi", "--headless", "--port", "3000"]
