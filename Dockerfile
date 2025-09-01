@@ -9,9 +9,6 @@ RUN apt-get update && \
 # Créer le dossier de travail
 WORKDIR /app
 
-# Copier .env
-COPY .env /app/.env
-
 # Installer DoduAPI
 RUN curl -s https://get.dofusdu.de/doduapi | sh
 
