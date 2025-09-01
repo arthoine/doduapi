@@ -6,9 +6,9 @@ RUN apt-get update && \
     apt-get install -y curl unzip && \
     rm -rf /var/lib/apt/lists/*
 
-# Télécharger et installer doduapi dans /usr/local/bin
-RUN curl -s https://get.dofusdu.de/doduapi | sh && \
-    mv doduapi /usr/local/bin/doduapi
+# Télécharger le binaire doduapi directement depuis GitHub et le rendre exécutable
+RUN curl -L https://github.com/dofusdude/doduapi/releases/latest/download/doduapi-linux-amd64 -o /usr/local/bin/doduapi && \
+    chmod +x /usr/local/bin/doduapi
 
 # Créer dossier de travail
 WORKDIR /app
