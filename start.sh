@@ -1,8 +1,5 @@
-#!/bin/bash
-set -e
-
-# Migration de la base
-doduapi migrate up
-
-# Lancer doduapi en mode headless pour éviter les erreurs TTY
-exec doduapi --headless
+RUN curl -s https://get.dofusdu.de/doduapi | sh
+# Vérifier où le binaire est installé
+RUN ls -la /root/.local/bin
+# Ajouter au PATH si nécessaire
+ENV PATH="/root/.local/bin:${PATH}"
